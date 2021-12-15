@@ -2,7 +2,7 @@
 spring:
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
@@ -20,7 +20,7 @@ spring:
       enabled: true
       path: /h2_db
   datasource:
-    url: jdbc:h2:file:~/newdb/testdb;DB_CLOSE_ON_EXIT=FALSE;AUTO_SERVER=TRUE
+    url: jdbc:h2:file:~/db/h2;DB_CLOSE_ON_EXIT=FALSE;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE;AUTO_SERVER=TRUE
     driver-class-name: org.h2.Driver
     username: user
     password: 1234
