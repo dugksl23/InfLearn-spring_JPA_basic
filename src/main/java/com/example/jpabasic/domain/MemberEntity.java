@@ -17,8 +17,9 @@ public class MemberEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(nullable = false, length = 255)
+    @Column(unique = true, nullable = false, length = 255)
     private String username;
+    @Column(unique = true)
     private long age;
 
 }
