@@ -1,6 +1,6 @@
 package com.example.jpabasic.web;
 
-import com.example.jpabasic.domain.MemberEntity;
+import com.example.jpabasic.domain.Member;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -19,7 +19,7 @@ public class EntityManagerFactoryTest {
 
         // 1. save
         try {
-            MemberEntity dd = new MemberEntity();
+            Member dd = new Member();
             dd.setId(1L);
             dd.setUsername("dd");
 
@@ -30,11 +30,11 @@ public class EntityManagerFactoryTest {
 
             // 2. find (jpql)
             // 2-1 단순조회
-            MemberEntity memberEntity = em.find(MemberEntity.class, 1l);
+            Member memberEntity = em.find(Member.class, 1l);
 
 
             // 2-2. @Query 어노테이션(객체단위)
-            List<MemberEntity> resultList = em.createQuery("select m.id, m.username from MemberEntity as m", MemberEntity.class)
+            List<Member> resultList = em.createQuery("select m.id, m.username from Member as m", Member.class)
                     .getResultList();
 
             // -> 테이블을 대상으로 하는 쿼리가 아닌, 객체(entity)  대상으로 쿼리 수행
@@ -42,7 +42,7 @@ public class EntityManagerFactoryTest {
             //    jpa는 객체지향적으로 객체단위로 쿼리를 수행함으로서, 객체지향중심의 orm 개발을 가능케한다.
 
             // 2-3. paging
-            List<MemberEntity> resultList1 = em.createQuery("select m.id, m.username from MemberEntity as m", MemberEntity.class)
+            List<Member> resultList1 = em.createQuery("select m.id, m.username from Member as m", Member.class)
                     .setFirstResult(1)
                     .setMaxResults(10)
                     .getResultList();
