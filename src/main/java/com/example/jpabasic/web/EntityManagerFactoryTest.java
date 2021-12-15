@@ -22,6 +22,10 @@ public class EntityManagerFactoryTest {
             MemberEntity dd = new MemberEntity();
             dd.setId(1L);
             dd.setUsername("dd");
+
+            // 영속성 컨텍스트에 저장
+            // 이렇게 하면 해당 엔티티 매니저의 영속성 컨텍스트에 위에서 만든 member 객체가 저장된다.
+            // 이제 member 엔티티는 엔티티 매니저의 관리 대상이 되고, 영속성을 가졌다고 말할 수 있다.
             em.persist(dd);
 
             // 2. find (jpql)
@@ -53,16 +57,24 @@ public class EntityManagerFactoryTest {
             // * 트랜잭션 간의 쓰레드 공유는 절대 해선 안된다.
             memberEntity.setId(2l);
 
+            // db에 flush - db와 유일성을 유지하기 위함
+            em.flush();
 
+            // 각각의 엔티티 매니저에서 쌓인 쿼리를 커밋
+            // em.flush()가 포함됨
             transaction.commit();
 
         } catch (Exception e) {
             e.printStackTrace();
             transaction.rollback();
         } finally {
+            // 엔티티 매니저를 종료시켜줘야 한다.
+            // 아마 더 이상 사용하지 않는 자원이므로 메모리에 자원을 반환하지 않으면
+            // 성능 상 문제가 있어서 이렇게 종료시켜줘야 하는 건지 모르겠다.
+            // ** 다른 쓰레드와의 공유를 금지하기 위해서 반드시 닫아줘야 한다.
             em.close();
         }
-        emf.close();
+        emf.close();// 마찬가지로 엔티티 매니저 팩토리도 더이상 쓰지 않는다면 종료시켜줘야 한다.
 
     }
 
