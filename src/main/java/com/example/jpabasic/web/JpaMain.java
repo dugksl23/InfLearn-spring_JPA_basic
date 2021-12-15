@@ -25,6 +25,10 @@ public class JpaMain {
 
         // 영속화
         em.persist(memberEntity);
+//        em.flush();
+        em.createQuery("select m from memberEntity as m").getResultList();
+        MemberEntity memberEntity3 = em.find(MemberEntity.class, 1l);
+        log.info("id : {}", memberEntity3.getId());
 
         // 영속화 find
         MemberEntity memberEntity1 = em.find(MemberEntity.class, 1l);
@@ -41,6 +45,10 @@ public class JpaMain {
         // 삭제 - 영컨에 캐싱된 엔티티와 db의 data까지 삭제
         em.remove(memberEntity);
 
+        // 변경감지
+        memberEntity1.setUsername("aaaa");
+        MemberEntity memberEntity4 = em.find(MemberEntity.class, 1l);
+        log.info("Dirty checking, name : {}", memberEntity4.getUsername());
 
         // 트랙잭션 버퍼에 쌓인 query 를 커밋
         transaction.commit();

@@ -14,8 +14,6 @@ spring:
     cache: false
   main:
     allow-bean-definition-overriding: true
-
-
   h2:
     console:
       enabled: true
@@ -26,3 +24,8 @@ spring:
     driver-class-name: org.h2.Driver
     username: user
     password: 1234
+
+
+  properties:
+    hibernate:
+      default_batch_fetch_size: 100
