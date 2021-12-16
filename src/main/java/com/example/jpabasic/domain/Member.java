@@ -69,7 +69,7 @@ public class Member {
     private Role role;
 
     @ManyToOne
-    @JoinColumn(name = "team_id")
+    @JoinColumn(name = "team_id") // 외래키로 조인
     private Team team;
 
 

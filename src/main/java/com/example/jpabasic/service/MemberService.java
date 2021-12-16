@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -33,7 +34,7 @@ public class MemberService {
     }
 
     @Transactional
-    public Member findOne(Long id){
+    public Member findMember(Long id){
         Optional<Member> byId = memberRepository.findById(id);
 
         Team team = new Team();
@@ -42,6 +43,25 @@ public class MemberService {
         log.info("team id : {}",team.getId());
 
         byId.get().setTeam(save1);
+
+        List<Member> members = byId.get().getTeam().getMembers();
+        log.info("member count : {}", members.size());
+        for (Member member : members) {
+            System.out.println("member : " + member.getUsername());
+        }
+
+        return byId.get();
+    }
+
+    @Transactional
+    public Team findTeam(Long id){
+
+        Optional<Team> byId = teamRepository.findById(id);
+        List<Member> members = byId.get().getMembers();
+        for (Member member : members) {
+            log.info("member : {}", member);
+        }
+
         return byId.get();
     }
 
