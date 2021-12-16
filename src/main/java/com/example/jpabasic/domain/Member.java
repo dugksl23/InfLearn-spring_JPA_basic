@@ -1,7 +1,10 @@
 package com.example.jpabasic.domain;
 
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -12,17 +15,34 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "Member", uniqueConstraints = @UniqueConstraint(name = "member_uniq", columnNames = {"username", "age"}))
+//@Table(name = "Member", uniqueConstraints = @UniqueConstraint(name = "member_uniq", columnNames = {"username", "age"}))
+@SequenceGenerator(
+        name = "Member_Sequence_Generator", // generator 이름
+        sequenceName = "Member_Seq", // 매핑할 db 시퀀스 이름,
+        initialValue= 1,
+        allocationSize = 1
+)
+//@TableGenerator(
+//        name = "Member_seq_generator",
+//        table = "Member_seq_table",
+//        pkColumnName = "member_seq",
+//        allocationSize = 1
+//)
 public class Member {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE   , generator = "Member_seq_generator")
     private Long id;
 
-    @Column(name = "username", unique = true)
+
+    // int 는 null 일경우에 문제가 발생하기에 null 일경우 0으로 대체 가능한 Integer 로 사용해야 함
+    // int, Integer는 integer
+    // 그러나 long 써야 한다. int는 10억이상 안되기에...
+    // long은 BigInt
+    @Column(name = "username")
     private String username;
 
-    @Column(name = "age", unique = true)
+    @Column(name = "age")
     private long age;
 
     @Lob

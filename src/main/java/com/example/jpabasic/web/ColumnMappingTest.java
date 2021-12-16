@@ -21,15 +21,29 @@ public class ColumnMappingTest extends JpaTransactionManager {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("hello");
         EntityManager em = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = em.getTransaction();
+
+        // transaction 시작
         transaction.begin();
-        Member member = Member.builder().username("dd")
-                .age(10).role(Role.MANAGER).description("관리자임").build();
+        Member member = Member.builder().username("dd1").age(10).role(Role.MANAGER).description("관리자임").build();
+        Member member2 = Member.builder().username("dd2").age(102).role(Role.MANAGER).description("관리자임1").build();
+        Member member4 = Member.builder().username("dd3").age(103).role(Role.MANAGER).description("관리자임").build();
+        Member member5 = Member.builder().username("dd4").age(104).role(Role.MANAGER).description("관리자임1").build();
 
         em.persist(member);
+        em.persist(member2);
+        em.persist(member4);
+        em.persist(member5);
+
+
         log.info("ID: {}", member.getId());
-        Member member1 = em.find(Member.class, member.getId());
-        log.info("member role : {}", member1.getRole());
+        log.info("ID: {}", member2.getId());
+        log.info("ID: {}", member4.getId());
+        log.info("ID: {}", member5.getId());
+
         transaction.commit();
         em.close();
+        // transaction 종료
+
+
     }
 }

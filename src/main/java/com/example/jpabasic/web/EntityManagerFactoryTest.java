@@ -20,7 +20,7 @@ public class EntityManagerFactoryTest {
         // 1. save
         try {
             Member dd = new Member();
-            dd.setId(1L);
+            dd.setId(1l);
             dd.setUsername("dd");
 
             // 영속성 컨텍스트에 저장
