@@ -65,24 +65,24 @@ public class Mapping {
     @Transactional
     public String saveTeamAndAddMember() {
 
+        // 팀 생성 및 영속화
+        Team team = new Team();
+        team.setName("dd");
+        Team team2 = memberService.saveTeam(team);
+
         // 멤버 생성 및 영속화
         Member member = new Member();
         member.setAge(20);
         member.setRole(Role.MANAGER);
         member.setUsername("mappedByTeam");
         member.setDescription("dd");
-
-        // 팀 생성 및 영속화
-        Team team = new Team();
-        team.setName("dd");
-        Team team2 = memberService.saveTeam(team);
-
-        //양 방향일 경우에는 팀과 회원 모두에게 해야지 객체지향스러운 코드가 된다.
-        team2.getMembers().add(member);
-
+//        team2.getMembers().add(member);
         // member(주인)을 통한 객체 참조 매핑
-        member.setTeam(team2);
-        memberService.save(member);
+        //양 방향일 경우에는 팀과 회원 모두에게 해야지 객체지향스러운 코드가 된다.
+//        member.changeTeam(team2);
+        member.changeTeam(team2);
+        System.out.println("team.getMember : {}, {}" + team.getMembers().get(0).getUsername() + team.getMembers().get(0).toString());
+          memberService.save(member);
 
         return "dd";
 

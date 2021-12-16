@@ -85,4 +85,11 @@ public class Member {
         this.role = role;
         this.temp = temp;
     }
+
+
+    public void changeTeam(Team team){
+
+        this.team=team;
+        team.getMembers().add(this);
+    }
 }
