@@ -24,11 +24,11 @@ public class MemberService {
 
     @Transactional
     public Member save(Member member) {
-        Team team = new Team();
-        team.setName("team1");
-        Team save1 = teamRepository.save(team);
-        log.info("team id : {}",team.getId());
-        member.setTeam(save1);
+//        Team team = new Team();
+//        team.setName("team1");
+//        Team save1 = teamRepository.save(team);
+//        log.info("team id : {}",team.getId());
+//        member.setTeam(save1);
         Member save = memberRepository.save(member);
         return save;
     }
@@ -63,6 +63,15 @@ public class MemberService {
         }
 
         return byId.get();
+    }
+
+    @Transactional
+    public Team saveTeam(Team team){
+
+        Team save = teamRepository.save(team);
+
+
+        return save;
     }
 
 
