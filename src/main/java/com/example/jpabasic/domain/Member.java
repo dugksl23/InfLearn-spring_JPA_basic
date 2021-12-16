@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -19,7 +21,7 @@ import java.util.Date;
 @SequenceGenerator(
         name = "Member_Sequence_Generator", // generator 이름
         sequenceName = "Member_Seq", // 매핑할 db 시퀀스 이름,
-        initialValue= 1,
+        initialValue = 1,
         allocationSize = 1
 )
 //@TableGenerator(
@@ -31,7 +33,8 @@ import java.util.Date;
 public class Member {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE   , generator = "Member_seq_generator")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Member_seq_generator")
+    @Column(name = "member_id")
     private Long id;
 
 
@@ -57,11 +60,18 @@ public class Member {
 
     // java 8 버전부터
     // @Temporal(TemporalType.TIMESTAMP) 어노테이션 생략 가능
+    @CreationTimestamp
     private LocalDate localDate;
+    @UpdateTimestamp
     private LocalDateTime localDateTime;
 
     @Enumerated(EnumType.STRING) //열거
     private Role role;
+
+    @ManyToOne
+    @JoinColumn(name = "team_id")
+    private Team team;
+
 
     @Transient
     private String temp;
