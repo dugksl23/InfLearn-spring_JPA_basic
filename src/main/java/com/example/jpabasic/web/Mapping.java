@@ -1,6 +1,7 @@
 package com.example.jpabasic.web;
 
 
+import com.example.jpabasic.domain.Locker;
 import com.example.jpabasic.domain.Member;
 import com.example.jpabasic.domain.Role;
 import com.example.jpabasic.domain.Team;
@@ -19,6 +20,7 @@ import javax.transaction.Transactional;
 public class Mapping {
 
     private final MemberService memberService;
+
 
     @RequestMapping(value = "/register")
     @ResponseBody
@@ -82,7 +84,7 @@ public class Mapping {
 //        member.changeTeam(team2);
 //        member.changeTeam(team2);
         System.out.println("team.getMember : {}, {}" + team.getMembers().get(0).getUsername() + team.getMembers().get(0).toString());
-          memberService.save(member);
+        memberService.save(member);
 
         return "dd";
 
@@ -90,21 +92,56 @@ public class Mapping {
 
 
     @RequestMapping("/oneToMany")
-    public Team oneToManyTest(){
+    public Team oneToManyTest() {
         Team team = new Team();
         team.setName("team owner");
 
         Member member = new Member();
-        member.setUsername("dd");
-        Member save = memberService.save(member);
+        member.setUsername("member1");
+        member = memberService.save(member);
 
-        team.getMembers().add(save);
+        team.getMembers().add(member);
+        team = memberService.saveTeam(team);
 
-        Team team1 = memberService.saveTeam(team);
-        return team1;
+        log.info("============ 매핑 완료 =================");
+
+        return team;
 
     }
 
+    @RequestMapping("/oneToMany/update")
+    public Team oneToManyUpdateTest() {
+
+        Member member1 = memberService.findMember(1l);
+        member1.getTeam().setName("df");
+
+        return member1.getTeam();
+
+    }
+
+
+
+    @RequestMapping("/locker")
+    @Transactional
+    public void locker() {
+        Locker locker = new Locker();
+        locker.setName("dd");
+
+        Locker locker1 = memberService.saveLocker(locker);
+
+        Member member = new Member();
+        member.setUsername("dddd");
+        member.setLocker(locker1);
+
+        Member save = memberService.save(member);
+        locker1.setMember(save);
+        locker1.getMember().setUsername("dd1111");
+        locker1.setName("dd");
+//        memberService.updateUsername(locker);
+
+
+
+    }
 
 
 }

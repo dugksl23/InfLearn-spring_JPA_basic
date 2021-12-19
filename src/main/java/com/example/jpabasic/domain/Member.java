@@ -13,8 +13,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-import static javax.persistence.TemporalType.*;
-
 @Entity
 @Getter
 @Setter
@@ -71,9 +69,15 @@ public class Member {
     private Role role;
 
     @ManyToOne
-    @JoinColumn(name = "team_id", insertable = false, updatable = false) // 외래키로 조인
+    @JoinColumn(name = "team_id", updatable = false, insertable = false) // 외래키로 조인
     private Team team;
 
+    @OneToOne
+    @JoinColumn(name = "locker_id")
+    private Locker locker;
+    // oneToOne 은 ManyToOne처럼 단방향일 때,
+    // 관계의 주인에서 @JoinColumn 을 사용하여, join 할 테이블의 pk와 매핑한다.
+    // oneToMany 단방향, 양방향 모두 본인이 관계의 주인이 되기에, 본인에게 건다.
 
     @Transient
     private String temp;

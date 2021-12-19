@@ -1,8 +1,10 @@
 package com.example.jpabasic.service;
 
 
+import com.example.jpabasic.domain.Locker;
 import com.example.jpabasic.domain.Member;
 import com.example.jpabasic.domain.Team;
+import com.example.jpabasic.repository.LockerRepository;
 import com.example.jpabasic.repository.MemberRepository;
 import com.example.jpabasic.repository.TeamRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,7 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final TeamRepository teamRepository;
+    private final LockerRepository lockerRepository;
 
     @Transactional
     public Member save(Member member) {
@@ -34,13 +37,13 @@ public class MemberService {
     }
 
     @Transactional
-    public Member findMember(Long id){
+    public Member findMember(Long id) {
         Optional<Member> byId = memberRepository.findById(id);
 
         Team team = new Team();
         team.setName("team2");
         Team save1 = teamRepository.save(team);
-        log.info("team id : {}",team.getId());
+        log.info("team id : {}", team.getId());
 
         byId.get().setTeam(save1);
 
@@ -54,7 +57,7 @@ public class MemberService {
     }
 
     @Transactional
-    public Team findTeam(Long id){
+    public Team findTeam(Long id) {
 
         Optional<Team> byId = teamRepository.findById(id);
         List<Member> members = byId.get().getMembers();
@@ -66,7 +69,7 @@ public class MemberService {
     }
 
     @Transactional
-    public Team saveTeam(Team team){
+    public Team saveTeam(Team team) {
 
         Team save = teamRepository.save(team);
 
@@ -74,7 +77,16 @@ public class MemberService {
         return save;
     }
 
+    @Transactional
+    public Locker saveLocker(Locker locker) {
+        Locker locker1 = lockerRepository.save(locker);
+//        lockerRepository.save(locker1);
+        return locker1;
+    }
 
 
-
+    @Transactional
+    public void updateUsername(Locker locker) {
+        locker.getMember().setUsername("ddd11111");
+    }
 }
