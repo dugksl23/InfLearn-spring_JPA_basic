@@ -2,7 +2,6 @@ package com.example.jpabasic.domain;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.domain.Sort;
 
 import javax.persistence.*;
 
@@ -46,10 +45,6 @@ public class OrderItem { // =OrderItemDetail, 주문 내역서의 아이템 1 ro
         }
 
     }
-
-
-
-
 
 
 }

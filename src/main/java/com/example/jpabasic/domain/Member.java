@@ -13,6 +13,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+import static javax.persistence.TemporalType.*;
+
 @Entity
 @Getter
 @Setter
@@ -69,7 +71,7 @@ public class Member {
     private Role role;
 
     @ManyToOne
-    @JoinColumn(name = "team_id") // 외래키로 조인
+    @JoinColumn(name = "team_id", insertable = false, updatable = false) // 외래키로 조인
     private Team team;
 
 
@@ -87,9 +89,9 @@ public class Member {
     }
 
 
-    public void changeTeam(Team team){
+    public void changeTeam(Team team) {
 
-        this.team=team;
+        this.team = team;
         team.getMembers().add(this);
 
     }

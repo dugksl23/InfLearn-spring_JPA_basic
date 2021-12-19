@@ -26,7 +26,7 @@ public class Mapping {
 
         Team team = new Team();
         team.setName("dd");
-        member.setTeam(team);
+//        member.setTeam(team);
         Member save = memberService.save(member);
 
         return save;
@@ -80,13 +80,31 @@ public class Mapping {
         // member(주인)을 통한 객체 참조 매핑
         //양 방향일 경우에는 팀과 회원 모두에게 해야지 객체지향스러운 코드가 된다.
 //        member.changeTeam(team2);
-        member.changeTeam(team2);
+//        member.changeTeam(team2);
         System.out.println("team.getMember : {}, {}" + team.getMembers().get(0).getUsername() + team.getMembers().get(0).toString());
           memberService.save(member);
 
         return "dd";
 
     }
+
+
+    @RequestMapping("/oneToMany")
+    public Team oneToManyTest(){
+        Team team = new Team();
+        team.setName("team owner");
+
+        Member member = new Member();
+        member.setUsername("dd");
+        Member save = memberService.save(member);
+
+        team.getMembers().add(save);
+
+        Team team1 = memberService.saveTeam(team);
+        return team1;
+
+    }
+
 
 
 }
