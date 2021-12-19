@@ -62,7 +62,7 @@ public class OrderController {
         }).collect(Collectors.toList());
 
         // orderItem와 order의 객체매핑
-        //orderSave.setOrderItems(collect1);
+        orderSave.setOrderItems(collect1);
 
         return orderSave;
 

@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.platform.commons.logging.Logger;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -40,7 +40,7 @@ public class OrderRequestTest {
     @Autowired
     private WebApplicationContext ctx;
 
-//    private Logger log = (Logger) LoggerFactory.getLogger(this.getClass());
+    private Logger log = (Logger) LoggerFactory.getLogger(OrderRequestTest.class);
 
     @BeforeEach
     @DisplayName("MockMvc 객체 DI 및 UTF 설정")
@@ -95,7 +95,7 @@ public class OrderRequestTest {
         String content = result.getResponse().getContentAsString();
         Assert.notNull(content);
         System.out.println(content);
-//        log.info("content : {}", content);
+        log.info("content : {}",content);
     }
 
 }
