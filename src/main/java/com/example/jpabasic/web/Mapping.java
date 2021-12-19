@@ -20,6 +20,7 @@ import javax.transaction.Transactional;
 public class Mapping {
 
     private final MemberService memberService;
+    private MemberService memberService1;
 
 
     @RequestMapping(value = "/register")
@@ -49,7 +50,7 @@ public class Mapping {
     @RequestMapping(value = "/team/{id}")
     @ResponseBody
     @Transactional
-    public String findTeam(@PathVariable Long id) {
+    public String findTeam1(@PathVariable Long id) {
 
         Team team = memberService.findTeam(id);
         System.out.println("======== 관계의 주인이 아닌 team에서 update start ========");
@@ -120,24 +121,58 @@ public class Mapping {
     }
 
 
-
     @RequestMapping("/locker")
+    @ResponseBody
     @Transactional
-    public void locker() {
-        Locker locker = new Locker();
-        locker.setName("dd");
-
-        Locker locker1 = memberService.saveLocker(locker);
+    public Locker locker() {
 
         Member member = new Member();
         member.setUsername("dddd");
-        member.setLocker(locker1);
-
         Member save = memberService.save(member);
-        locker1.setMember(save);
-        locker1.getMember().setUsername("dd1111");
-        locker1.setName("dd");
-//        memberService.updateUsername(locker);
+
+        Locker locker = new Locker();
+        locker.setName("dd");
+        locker.setMember(member);
+        Locker locker1 = memberService.saveLocker(locker);
+        Member member1 = memberService.findMember(save.getId());
+
+        System.out.println(member1.getId());
+
+
+        return locker1;
+
+    }
+
+    @RequestMapping("/registerTeam")
+    @ResponseBody
+    public Member updateTest() {
+
+        Team team = new Team();
+        team.setName("dd");
+//        member.setTeam(team);
+        Team team1 = memberService.saveTeam(team);
+
+        Member member = new Member();
+        member.setUsername("dddd");
+        member.setTeam(team1);
+        Member save = memberService.save(member);
+
+        return save;
+    }
+
+    @RequestMapping("/findTeam/{id}")
+    @ResponseBody
+    @Transactional
+    public void findTeam(@PathVariable Long id) {
+
+        Team team = memberService.findTeam(id);
+        team.getMembers().stream().map(member -> {
+            System.out.println("수정 전 member name : " + member.getUsername());
+            System.out.println("수정후");
+            member.setUsername("ddddd");
+            System.out.println("수정 후 member name : " + member.getUsername());
+            return member;
+        });
 
 
 

@@ -3,7 +3,6 @@ package com.example.jpabasic.domain;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -19,11 +18,11 @@ public class Team {
     private Long id;
     private String name;
 
-    //    @OneToMany(mappedBy = "team")
-//    private List<Member> members = new ArrayList<Member>() ;
-    @OneToMany
-    @JoinColumn(name = "team_id")
-    private List<Member> members = new ArrayList<>();
+    @OneToMany(mappedBy = "team")
+    private List<Member> members = new ArrayList<Member>();
+//    @OneToMany
+//    @JoinColumn(name = "team_id")
+//    private List<Member> members = new ArrayList<>();
 
 
 }

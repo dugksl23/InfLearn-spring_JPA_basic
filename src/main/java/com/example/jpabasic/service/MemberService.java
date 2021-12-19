@@ -61,9 +61,6 @@ public class MemberService {
 
         Optional<Team> byId = teamRepository.findById(id);
         List<Member> members = byId.get().getMembers();
-        for (Member member : members) {
-            log.info("member : {}", member);
-        }
 
         return byId.get();
     }

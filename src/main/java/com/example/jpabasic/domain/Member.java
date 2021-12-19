@@ -69,10 +69,10 @@ public class Member {
     private Role role;
 
     @ManyToOne
-    @JoinColumn(name = "team_id", updatable = false, insertable = false) // 외래키로 조인
+    @JoinColumn(name = "team_id") // 외래키로 조인
     private Team team;
 
-    @OneToOne
+    @OneToOne(mappedBy = "member")
     @JoinColumn(name = "locker_id")
     private Locker locker;
     // oneToOne 은 ManyToOne처럼 단방향일 때,
