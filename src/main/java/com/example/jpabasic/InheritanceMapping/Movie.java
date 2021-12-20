@@ -1,5 +1,6 @@
 package com.example.jpabasic.InheritanceMapping;
 
+import com.example.jpabasic.InheritanceMapping.core.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
 
