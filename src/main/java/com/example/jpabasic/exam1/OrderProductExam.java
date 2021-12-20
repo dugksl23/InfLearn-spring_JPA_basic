@@ -23,5 +23,4 @@ public class OrderProductExam {
     @JoinColumn(name = "product_id")
     private ProductExam product;
 
-
 }

@@ -17,11 +17,11 @@ public class CategoryExam {
     private Long id;
 
     // 셀프 조인
-//    @ManyToOne
-//    @JoinColumn(name = "parent_id")
-//    private CategoryExam parent;
-//
-//    @OneToMany(mappedBy = "parent")
-//    private List<CategoryExam> child = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "parent_id")
+    private CategoryExam parent;
+
+    @OneToMany(mappedBy = "parent")
+    private List<CategoryExam> child = new ArrayList<>();
 
 }
