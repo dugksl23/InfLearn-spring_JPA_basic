@@ -12,6 +12,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -82,6 +83,10 @@ public class Member {
     @Transient
     private String temp;
     // @Transient - jpa, 영속성 컨텍스트의 관리에서 제외되는 어노테이션
+
+    @OneToMany(mappedBy = "member")
+    private List<MemberProduct> memberProducts;
+
 
     @Builder
     public Member(String username, long age, String description, Role role, String temp) {

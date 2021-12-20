@@ -55,9 +55,8 @@ public class OrderRequestTest {
     @Test
     @DisplayName("주문 생성 test")
     public void registerOrderTest() throws Exception {
-
+        Orders order = new Orders();
         // given...
-
         OrderItem orderItem = new OrderItem();
         Item item = new Item();
         item.setName("item1");
@@ -78,7 +77,6 @@ public class OrderRequestTest {
         orderItem2.setOrderPrice(10000);
         orderItem2.setCount(100);
 
-        Orders order = new Orders();
         order.setOrderItems(Arrays.asList(orderItem2, orderItem2));
 
 
