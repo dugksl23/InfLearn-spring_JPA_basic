@@ -17,6 +17,7 @@ public class ProductExam {
     @Column(name = "product_id", nullable = false)
     private Long id;
 
+    private Integer quantity;
 
 
 }

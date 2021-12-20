@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -18,6 +19,9 @@ public class OrderExam {
     @ManyToOne
     @JoinColumn(name = "memberExam_id")
     private MemberExam member;
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderProductExam> orders;
 
     @OneToOne
     @JoinColumn(name = "delivery_id")
