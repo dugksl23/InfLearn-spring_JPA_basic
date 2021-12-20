@@ -1,10 +1,10 @@
 package com.example.jpabasic.web;
 
 
-import com.example.jpabasic.domain.Locker;
-import com.example.jpabasic.domain.Member;
-import com.example.jpabasic.domain.Role;
-import com.example.jpabasic.domain.Team;
+import com.example.jpabasic.basic_study.Locker;
+import com.example.jpabasic.basic_study.Member;
+import com.example.jpabasic.basic_study.Role;
+import com.example.jpabasic.basic_study.Team;
 import com.example.jpabasic.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

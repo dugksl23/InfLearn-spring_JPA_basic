@@ -1,9 +1,9 @@
 package com.example.jpabasic.service;
 
 
-import com.example.jpabasic.domain.Locker;
-import com.example.jpabasic.domain.Member;
-import com.example.jpabasic.domain.Team;
+import com.example.jpabasic.basic_study.Locker;
+import com.example.jpabasic.basic_study.Member;
+import com.example.jpabasic.basic_study.Team;
 import com.example.jpabasic.repository.LockerRepository;
 import com.example.jpabasic.repository.MemberRepository;
 import com.example.jpabasic.repository.TeamRepository;

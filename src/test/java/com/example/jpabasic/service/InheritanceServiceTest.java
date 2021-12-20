@@ -1,14 +1,16 @@
 package com.example.jpabasic.service;
 
-import com.example.jpabasic.InheritanceMapping.Movie;
-import com.example.jpabasic.InheritanceMapping.repository.AlbumRepository;
-import com.example.jpabasic.InheritanceMapping.repository.BookRepository;
-import com.example.jpabasic.InheritanceMapping.repository.ItemInheritanceRepository;
-import com.example.jpabasic.InheritanceMapping.repository.MovieRepository;
+import com.example.jpabasic.InheritanceMapping_study.Movie;
+import com.example.jpabasic.InheritanceMapping_study.repository.AlbumRepository;
+import com.example.jpabasic.InheritanceMapping_study.repository.BookRepository;
+import com.example.jpabasic.InheritanceMapping_study.repository.ItemInheritanceRepository;
+import com.example.jpabasic.InheritanceMapping_study.repository.MovieRepository;
+import com.example.jpabasic.practice_exam.MovieExam;
+import com.example.jpabasic.practice_exam.ProductExam;
+import com.example.jpabasic.repository.MovieExamRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
 import org.springframework.test.annotation.Rollback;
@@ -29,19 +31,22 @@ public class InheritanceServiceTest {
     @Autowired
     ItemInheritanceRepository itemInheritanceRepository;
 
+    @Autowired
+    MovieExamRepository movieExamRepository;
+
 
     @Test
     @Rollback(value = false)
     @Commit
     public void inheritanceJoinTest() {
 
-        Movie movie = new Movie();
-        movie.setName("sdfsdfs ");
-        movie.setActor("yohan");
-        movie.setPrice(1000);
-        movie.setDirector("yohan");
+        MovieExam movie = new MovieExam();
+        movie.setActor("요한");
+        movie.setAuthor("나");
+        movie.setDirector("Yohan");
 
-        movieRepository.save(movie);
+
+        movieExamRepository.save(movie);
 
     }
 

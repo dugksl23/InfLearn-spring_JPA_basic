@@ -1,7 +1,7 @@
 package com.example.jpabasic.web;
 
 
-import com.example.jpabasic.domain.*;
+import com.example.jpabasic.basic_study.*;
 import com.example.jpabasic.repository.ItemRepository;
 import com.example.jpabasic.repository.OrderItemRepository;
 import com.example.jpabasic.repository.OrderRepository;

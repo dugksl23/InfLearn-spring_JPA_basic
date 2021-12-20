@@ -1,7 +1,7 @@
 package com.example.jpabasic.web;
 
-import com.example.jpabasic.domain.Member;
-import com.example.jpabasic.domain.Role;
+import com.example.jpabasic.basic_study.Member;
+import com.example.jpabasic.basic_study.Role;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.orm.jpa.JpaTransactionManager;
 

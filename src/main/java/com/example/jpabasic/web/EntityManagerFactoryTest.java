@@ -1,6 +1,6 @@
 package com.example.jpabasic.web;
 
-import com.example.jpabasic.domain.Member;
+import com.example.jpabasic.basic_study.Member;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
