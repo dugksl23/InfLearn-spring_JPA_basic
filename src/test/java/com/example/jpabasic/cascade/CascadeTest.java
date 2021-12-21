@@ -41,4 +41,30 @@ public class CascadeTest {
 
 
     }
+
+    @Test
+    @Rollback(value = false)
+    public void cascadeRemoveWithOrphanTest() {
+
+        Team team = new Team();
+        team.setName("team1");
+
+        Member member = new Member();
+        member.setUsername("user1");
+        memberRepository.save(member);
+
+        Member member2 = new Member();
+        member2.setUsername("user2");
+        memberRepository.save(member2);
+
+        team.addMember(member);
+        team.addMember(member2);
+
+        Team save = teamRepository.save(team);
+        teamRepository.delete(save);
+//        memberRepository.delete(member2);
+
+    }
+
+
 }
