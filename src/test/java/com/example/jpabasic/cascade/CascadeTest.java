@@ -2,7 +2,10 @@ package com.example.jpabasic.cascade;
 
 import com.example.jpabasic.basic_study.Member;
 import com.example.jpabasic.basic_study.Team;
-import com.example.jpabasic.repository.MemberRepository;
+import com.example.jpabasic.practice_exam.MemberExam;
+import com.example.jpabasic.practice_exam.core.embedded.Address;
+import com.example.jpabasic.practice_exam.core.embedded.LogDate;
+import com.example.jpabasic.repository.MemberExamRepository;
 import com.example.jpabasic.repository.TeamRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -20,7 +22,7 @@ public class CascadeTest {
     @Autowired
     private TeamRepository teamRepository;
     @Autowired
-    private MemberRepository memberRepository;
+    private MemberExamRepository memberExamRepository;
 
     @Test
     @Rollback(value = false)
@@ -45,7 +47,6 @@ public class CascadeTest {
 
     @Test
     @Rollback(value = false)
-    @Transactional
     public void cascadeRemoveWithOrphanTest() {
 
         Team team = new Team();
@@ -63,11 +64,27 @@ public class CascadeTest {
         team.addMember(member2);
 
         Team save = teamRepository.save(team);
-        save.getMembers().remove(0);
+//        save.getMembers().remove(0);
 //        teamRepository.delete(save);
 //        memberRepository.delete(member2);
 
     }
+
+
+    @Test
+    @Rollback(value = false)
+    public void embeddableMemberTest() {
+
+        MemberExam memberExam = new MemberExam();
+        memberExam.setName("dd");
+        memberExam.setHomeAddress(new Address());
+        memberExam.setLogDate(new LogDate());
+
+        memberExamRepository.save(memberExam);
+
+    }
+
+
 
 
 }
