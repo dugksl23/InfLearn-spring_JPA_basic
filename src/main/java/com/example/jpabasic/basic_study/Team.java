@@ -18,11 +18,16 @@ public class Team {
     private Long id;
     private String name;
 
-    @OneToMany(mappedBy = "team")
+    @OneToMany(mappedBy = "team", cascade = CascadeType.PERSIST)
     private List<Member> members = new ArrayList<Member>();
 //    @OneToMany
 //    @JoinColumn(name = "team_id")
 //    private List<Member> members = new ArrayList<>();
 
+
+    public void addMember(Member member) {
+        this.members.add(member);
+        member.setTeam(this);
+    }
 
 }
