@@ -64,7 +64,7 @@ public class InheritanceServiceTest {
     public void findProductTest() {
 
         Optional<ProductExam> byId = productExamRepository.findById(1l);
-        if(byId.isPresent()){
+        if (byId.isPresent()) {
             MovieExam productExam = (MovieExam) byId.get();
 
 

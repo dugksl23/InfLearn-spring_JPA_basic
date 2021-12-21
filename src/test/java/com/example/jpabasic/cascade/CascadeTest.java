@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -44,6 +45,7 @@ public class CascadeTest {
 
     @Test
     @Rollback(value = false)
+    @Transactional
     public void cascadeRemoveWithOrphanTest() {
 
         Team team = new Team();
@@ -51,17 +53,18 @@ public class CascadeTest {
 
         Member member = new Member();
         member.setUsername("user1");
-        memberRepository.save(member);
+//        memberRepository.save(member);
 
         Member member2 = new Member();
         member2.setUsername("user2");
-        memberRepository.save(member2);
+//        memberRepository.save(member2);
 
         team.addMember(member);
         team.addMember(member2);
 
         Team save = teamRepository.save(team);
-        teamRepository.delete(save);
+        save.getMembers().remove(0);
+//        teamRepository.delete(save);
 //        memberRepository.delete(member2);
 
     }

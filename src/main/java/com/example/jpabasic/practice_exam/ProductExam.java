@@ -23,7 +23,7 @@ public abstract  class ProductExam extends BaseEntity {
     private Integer quantity;
     private String name;
 
-    @OneToMany
+    @OneToMany(mappedBy = "product",fetch = FetchType.LAZY)
     private List<CategoryProduct> categoryProductList;
 
 }

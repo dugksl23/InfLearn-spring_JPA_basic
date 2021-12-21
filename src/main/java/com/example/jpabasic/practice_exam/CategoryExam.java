@@ -18,11 +18,11 @@ public class CategoryExam extends BaseEntity {
     private Long id;
 
     // 셀프 조인
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
     private CategoryExam parent;
 
-    @OneToMany(mappedBy = "parent")
+    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
     private List<CategoryExam> child = new ArrayList<>();
 
 }

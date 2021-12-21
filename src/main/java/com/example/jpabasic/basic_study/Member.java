@@ -73,7 +73,7 @@ public class Member {
     @JoinColumn(name = "team_id") // 외래키로 조인
     private Team team;
 
-    @OneToOne(mappedBy = "member")
+    @OneToOne(mappedBy = "member", fetch = FetchType.LAZY)
     @JoinColumn(name = "locker_id")
     private Locker locker;
     // oneToOne 은 ManyToOne처럼 단방향일 때,
@@ -84,7 +84,7 @@ public class Member {
     private String temp;
     // @Transient - jpa, 영속성 컨텍스트의 관리에서 제외되는 어노테이션
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<MemberProduct> memberProducts;
 
 

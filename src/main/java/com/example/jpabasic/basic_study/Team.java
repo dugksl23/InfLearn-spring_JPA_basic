@@ -18,7 +18,7 @@ public class Team {
     private Long id;
     private String name;
 
-    @OneToMany(mappedBy = "team", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "team", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Member> members = new ArrayList<Member>();
 //    @OneToMany
 //    @JoinColumn(name = "team_id")

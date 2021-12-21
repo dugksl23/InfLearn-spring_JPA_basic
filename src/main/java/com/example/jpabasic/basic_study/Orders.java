@@ -35,15 +35,15 @@ public class Orders { //주문 내역서
     @Column(name = "order_status")
     private OrderStatus status;
 
-    @ManyToOne // 연관관계의 주인
+    @ManyToOne(fetch = FetchType.LAZY) // 연관관계의 주인
     @JoinColumn(name = "user_id") // 외래키 매핑
     private Users user;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order", fetch = FetchType.LAZY)
     private List<OrderItem> orderItems; // 각각의 주문 내역
 
     public void setUser(Users user) {
-        if(!ObjectUtils.isEmpty(user)){
+        if (!ObjectUtils.isEmpty(user)) {
             this.user = user;
         }
     }

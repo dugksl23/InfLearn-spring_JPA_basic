@@ -21,10 +21,10 @@ public class OrderExam extends BaseEntity {
     @JoinColumn(name = "memberExam_id")
     private MemberExam member;
 
-    @OneToMany(mappedBy = "order")
-    private List<OrderProductExam> orders;
+    @OneToMany(cascade = CascadeType.ALL , mappedBy = "order", fetch = FetchType.LAZY)
+    private List<OrderProductExam> orderProducts;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "delivery_id")
     private DeliveryExam delivery;
 
