@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -22,5 +23,7 @@ public abstract  class ProductExam extends BaseEntity {
     private Integer quantity;
     private String name;
 
+    @OneToMany
+    private List<CategoryProduct> categoryProductList;
 
 }

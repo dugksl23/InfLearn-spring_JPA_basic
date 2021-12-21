@@ -69,7 +69,7 @@ public class Member {
     @Enumerated(EnumType.STRING) //열거
     private Role role;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id") // 외래키로 조인
     private Team team;
 
