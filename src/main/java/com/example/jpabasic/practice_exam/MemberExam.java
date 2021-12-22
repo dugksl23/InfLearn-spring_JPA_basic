@@ -47,7 +47,7 @@ public class MemberExam extends BaseEntity {
     private Address workAddress;
 
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "food", joinColumns = @JoinColumn(name = "memberExam_id"))
     // @OneToMany와 같은 1:다의 관계, food 테이블의 관계의 주인
     // 반면 food table @ManyToOne(mappedBy="member_id")으로 관계의 주인이지만,
@@ -58,7 +58,7 @@ public class MemberExam extends BaseEntity {
     // mappedBy 속성 사용할 수 없는 것과 현재 이 상황이 유사
     private Set<String> favoriteFood = new HashSet<>();
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "addresses", joinColumns = @JoinColumn(name = "member_id"))
     private List<Address> addresses = new ArrayList<>();
 }

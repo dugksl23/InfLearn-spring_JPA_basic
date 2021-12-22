@@ -16,6 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.Set;
 
 @SpringBootTest
@@ -137,5 +138,18 @@ public class CascadeTest {
 
     }
 
+
+    @Test
+    @Rollback(value = false)
+    @Transactional
+    public void 값타입조회Test() {
+
+        Optional<MemberExam> byId = memberExamRepository.findById(11L);
+        byId.get().getAddresses().get(0);
+        Set<String> favoriteFood = byId.get().getFavoriteFood();
+        favoriteFood.iterator().forEachRemaining(food -> {
+            System.out.println("food : " + food);
+        });
+    }
 
 }
