@@ -131,7 +131,7 @@ public class CascadeTest {
 
         MemberExam member = new MemberExam();
         member.setName("dd");
-        member.setAddresses(Arrays.asList(new Address("dd", "dd", "dd"), new Address("dd", "dd", "dd")));
+        member.setAddresses(Arrays.asList(new Address("old", "dd", "dd"), new Address("old1", "dd", "dd")));
         member.setFavoriteFood(Set.of("사과", "빵"));
 
         memberExamRepository.save(member);
@@ -170,6 +170,27 @@ public class CascadeTest {
         favoriteFood.add("빵1");
         // 단, 단순 String 의 set collection 이기에, 삭제된 row 의 수정이 아닌,
         // 다음 개행으로 새로 추가(insert)된다.
+
+        // 3. 값 타입 컬렉션 삭제 (*조회 후에 삭제!!)
+        MemberExam memberExam1 = memberExamRepository.findById(11L).get();
+        Address address1 = memberExam1.getAddresses().get(0);
+        memberExam1.getAddresses().remove(address1);
+
+        memberExam1.getAddresses().add(Address.builder().city("dd").zipCode("dd").street("dd").build());
+
+    }
+
+    @Test
+    @Rollback(value = false)
+    @Transactional
+    public void 값타입컬렉션삭제Test() {
+
+        // 1. 값 타입 컬렉션 삭제 (*조회 후에 삭제!!)
+        MemberExam memberExam1 = memberExamRepository.findById(13L).get();
+        Address address = memberExam1.getAddresses().get(0);
+        memberExam1.getAddresses().remove(memberExam1.getAddresses().get(0));
+
+        memberExam1.getAddresses().add(address.toNewAddress("new city","dd","dd"));
 
     }
 
