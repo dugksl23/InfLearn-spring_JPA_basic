@@ -30,6 +30,16 @@ public class MemberExam extends BaseEntity {
     private LogDate logDate;
 
     @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "zipCode", column = @Column(name = "home_zipcode")),
+            @AttributeOverride(name = "city", column = @Column(name = "home_city")),
+            @AttributeOverride(name = "street", column = @Column(name = "home_street"))})
     private Address homeAddress;
 
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "zipCode", column = @Column(name = "work_zipcode")),
+            @AttributeOverride(name = "city", column = @Column(name = "work_city")),
+            @AttributeOverride(name = "street", column = @Column(name = "work_street"))})
+    private Address workAddress;
 }

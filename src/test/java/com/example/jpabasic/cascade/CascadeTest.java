@@ -14,6 +14,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.transaction.Transactional;
+
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class CascadeTest {
@@ -73,18 +75,29 @@ public class CascadeTest {
 
     @Test
     @Rollback(value = false)
+    @Transactional
     public void embeddableMemberTest() {
+
+        Address address = new Address("서울","서울2","서울3");
 
         MemberExam memberExam = new MemberExam();
         memberExam.setName("dd");
-        memberExam.setHomeAddress(new Address());
+        memberExam.setHomeAddress(address);
         memberExam.setLogDate(new LogDate());
-
         memberExamRepository.save(memberExam);
 
+        // 임베디드 값 타입을 복사해서 사용. - 공유 금지
+        Address address1 = address.toNewAddress("서울4", address.getCity(), address.getStreet());
+
+        MemberExam memberExam1 = new MemberExam();
+        memberExam1.setName("dd");
+        memberExam1.setHomeAddress(address1);
+        memberExam1.setLogDate(new LogDate());
+        memberExamRepository.save(memberExam1);
+
+        System.out.println(address.getCity());
+
     }
-
-
 
 
 }
