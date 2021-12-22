@@ -152,4 +152,26 @@ public class CascadeTest {
         });
     }
 
+    @Test
+    @Rollback(value = false)
+    @Transactional
+    public void 값타입수정Test() {
+
+        MemberExam memberExam = memberExamRepository.findById(11L).get();
+
+        // 1. 일반 값타입 필드 수정
+        Address address = memberExam.getHomeAddress()
+                .toNewAddress("수정 3", memberExam.getHomeAddress().getCity(), memberExam.getHomeAddress().getStreet());
+        memberExam.setHomeAddress(address);
+
+        // 2. 값 타입 컬렉션 필드 수정
+        Set<String> favoriteFood = memberExam.getFavoriteFood();
+        favoriteFood.remove("빵"); // 추가가 아닌 변경이기에 삭제를 하고 다시 넣어야 한다.
+        favoriteFood.add("빵1");
+        // 단, 단순 String 의 set collection 이기에, 삭제된 row 의 수정이 아닌,
+        // 다음 개행으로 새로 추가(insert)된다.
+
+    }
+
+
 }
