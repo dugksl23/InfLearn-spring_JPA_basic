@@ -1,9 +1,6 @@
 package com.example.jpabasic.practice_exam.core.embedded;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Embeddable;
 
@@ -13,6 +10,7 @@ import javax.persistence.Embeddable;
 @Getter
 @AllArgsConstructor
 @Builder
+@EqualsAndHashCode
 public class Address {
 
     private String zipCode;

@@ -78,7 +78,7 @@ public class CascadeTest {
     @Transactional
     public void embeddableMemberTest() {
 
-        Address address = new Address("서울","서울2","서울3");
+        Address address = new Address("서울", "서울2", "서울3");
 
         MemberExam memberExam = new MemberExam();
         memberExam.setName("dd");
@@ -87,7 +87,9 @@ public class CascadeTest {
         memberExamRepository.save(memberExam);
 
         // 임베디드 값 타입을 복사해서 사용. - 공유 금지
-        Address address1 = address.toNewAddress("서울4", address.getCity(), address.getStreet());
+        Address address1 = address.toNewAddress(address.getZipCode(), address.getCity(), address.getStreet());
+
+        System.out.println("동일 인스턴스 비교 : " + (address == address1));
 
         MemberExam memberExam1 = new MemberExam();
         memberExam1.setName("dd");
@@ -97,6 +99,26 @@ public class CascadeTest {
 
         System.out.println(address.getCity());
 
+    }
+
+
+    @Test
+    public void equalTest() {
+
+        // 1. address  인스턴스 생성
+        Address address = new Address("서울", "서울2", "서울3");
+
+        // 2. " == " 비교용 새로운 인스턴스 생성
+        Address address1 = address.toNewAddress(address.getZipCode(), address.getCity(), address.getStreet());
+        Address address2 = address;
+
+        // 1. 인스턴스의 참조값 비교 " == "
+        System.out.println("동일 인스턴스 == 비교 : " + (address == address1));
+        // --> false
+
+        // 2. 인스턴스 value 비교 -  @EqualsAndHashCode
+        System.out.println("동일 인스턴스 == 비교 : " + (address.equals(address2)));
+        // --> true
     }
 
 
