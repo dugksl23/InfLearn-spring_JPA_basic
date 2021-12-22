@@ -2,6 +2,7 @@ package com.example.jpabasic.cascade;
 
 import com.example.jpabasic.basic_study.Member;
 import com.example.jpabasic.basic_study.Team;
+import com.example.jpabasic.practice_exam.AddressExam;
 import com.example.jpabasic.practice_exam.MemberExam;
 import com.example.jpabasic.practice_exam.core.embedded.Address;
 import com.example.jpabasic.practice_exam.core.embedded.LogDate;
@@ -122,6 +123,7 @@ public class CascadeTest {
         // 2. 인스턴스 value 비교 -  @EqualsAndHashCode
         System.out.println("동일 인스턴스 == 비교 : " + (address.equals(address2)));
         // --> true
+
     }
 
 
@@ -131,7 +133,14 @@ public class CascadeTest {
 
         MemberExam member = new MemberExam();
         member.setName("dd");
-        member.setAddresses(Arrays.asList(new Address("old", "dd", "dd"), new Address("old1", "dd", "dd")));
+
+        AddressExam addressExam = new AddressExam();
+        addressExam.setAddress(Address.builder().city("city1").street("street1").zipCode("zipcode1").build());
+
+        AddressExam addressExam1 = new AddressExam();
+        addressExam1.setAddress(Address.builder().city("city2").street("street2").zipCode("zipcode2").build());
+
+        member.setAddresses(Arrays.asList(addressExam, addressExam1));
         member.setFavoriteFood(Set.of("사과", "빵"));
 
         memberExamRepository.save(member);
@@ -157,7 +166,7 @@ public class CascadeTest {
     @Transactional
     public void 값타입수정Test() {
 
-        MemberExam memberExam = memberExamRepository.findById(11L).get();
+        MemberExam memberExam = memberExamRepository.findById(10L).get();
 
         // 1. 일반 값타입 필드 수정
         Address address = memberExam.getHomeAddress()
@@ -171,26 +180,22 @@ public class CascadeTest {
         // 단, 단순 String 의 set collection 이기에, 삭제된 row 의 수정이 아닌,
         // 다음 개행으로 새로 추가(insert)된다.
 
-        // 3. 값 타입 컬렉션 삭제 (*조회 후에 삭제!!)
-        MemberExam memberExam1 = memberExamRepository.findById(11L).get();
-        Address address1 = memberExam1.getAddresses().get(0);
-        memberExam1.getAddresses().remove(address1);
-
-        memberExam1.getAddresses().add(Address.builder().city("dd").zipCode("dd").street("dd").build());
-
     }
 
     @Test
     @Rollback(value = false)
     @Transactional
-    public void 값타입컬렉션삭제Test() {
+    public void 엔티티컬렉션삭제Test() {
 
-        // 1. 값 타입 컬렉션 삭제 (*조회 후에 삭제!!)
+        // 1. 연관관계 삭제 (*조회 후에 삭제!!)
         MemberExam memberExam1 = memberExamRepository.findById(13L).get();
-        Address address = memberExam1.getAddresses().get(0);
-        memberExam1.getAddresses().remove(memberExam1.getAddresses().get(0));
+        AddressExam addressExam = memberExam1.getAddresses().remove(0);
 
-        memberExam1.getAddresses().add(address.toNewAddress("new city","dd","dd"));
+        AddressExam addressExam2 = new AddressExam();
+        addressExam2.setAddress(Address.builder().city("city3").street("street3").zipCode("zipcode3").build());
+
+        System.out.println("==== insert query 실행 전 ====");
+        memberExam1.getAddresses().add(addressExam2);
 
     }
 

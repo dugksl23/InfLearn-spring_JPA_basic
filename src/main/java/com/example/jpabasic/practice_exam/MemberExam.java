@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -58,7 +57,13 @@ public class MemberExam extends BaseEntity {
     // mappedBy 속성 사용할 수 없는 것과 현재 이 상황이 유사
     private Set<String> favoriteFood = new HashSet<>();
 
-    @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "addresses", joinColumns = @JoinColumn(name = "member_id"))
-    private List<Address> addresses = new ArrayList<>();
+//    @ElementCollection(fetch = FetchType.LAZY)
+//    @CollectionTable(name = "addresses", joinColumns = @JoinColumn(name = "member_id"))
+//    private List<Address> addresses = new ArrayList<>();
+
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "member_id")// 조인을 걸 pk (외래키)
+    private List<AddressExam> addresses; // 관계의 주인 //그러나 DB에서는 address에 외리키가 잇음
+
 }
