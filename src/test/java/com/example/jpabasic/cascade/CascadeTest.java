@@ -15,6 +15,8 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
+import java.util.Arrays;
+import java.util.Set;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -119,6 +121,20 @@ public class CascadeTest {
         // 2. 인스턴스 value 비교 -  @EqualsAndHashCode
         System.out.println("동일 인스턴스 == 비교 : " + (address.equals(address2)));
         // --> true
+    }
+
+
+    @Test
+    @Rollback(value = false)
+    public void 값타입InsertTest() {
+
+        MemberExam member = new MemberExam();
+        member.setName("dd");
+        member.setAddresses(Arrays.asList(new Address("dd", "dd", "dd"), new Address("dd", "dd", "dd")));
+        member.setFavoriteFood(Set.of("사과", "빵"));
+
+        memberExamRepository.save(member);
+
     }
 
 
