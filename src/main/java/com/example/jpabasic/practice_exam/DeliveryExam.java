@@ -2,6 +2,7 @@ package com.example.jpabasic.practice_exam;
 
 
 import com.example.jpabasic.practice_exam.core.BaseEntity;
+import com.example.jpabasic.practice_exam.core.embedded.Address;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -18,9 +19,9 @@ public class DeliveryExam extends BaseEntity {
     @Column(name = "delivery_id", nullable = false)
     private Long id;
 
-    // 배송지 주소
-    private String address;
-    private String zipcode;
+    // 배송지 주소 - embedded 타입으로 대체
+    @Embedded
+    private Address addressExam;
 
     @CreationTimestamp
     private LocalDateTime startDate;

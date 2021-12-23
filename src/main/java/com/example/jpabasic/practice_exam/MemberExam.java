@@ -48,6 +48,7 @@ public class MemberExam extends BaseEntity {
 
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "food", joinColumns = @JoinColumn(name = "memberExam_id"))
+    private Set<String> favoriteFood = new HashSet<>();
     // @OneToMany와 같은 1:다의 관계, food 테이블의 관계의 주인
     // 반면 food table @ManyToOne(mappedBy="member_id")으로 관계의 주인이지만,
     // @JoinColumn(name = "member_id", , insertable = false, updatable = false)
@@ -55,7 +56,7 @@ public class MemberExam extends BaseEntity {
     // 다쪽이 되는 테이블에서 @JoinColumn(insertable = false, updatable = false) 와 비슷
     // 1:다의 관계에서 다에서는 관계의 주인을 나타내는 mappedBy는 one에서 정의하기에 one이 주인일 때에는
     // mappedBy 속성 사용할 수 없는 것과 현재 이 상황이 유사
-    private Set<String> favoriteFood = new HashSet<>();
+
 
 //    @ElementCollection(fetch = FetchType.LAZY)
 //    @CollectionTable(name = "addresses", joinColumns = @JoinColumn(name = "member_id"))
@@ -63,7 +64,11 @@ public class MemberExam extends BaseEntity {
 
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "member_id")// 조인을 걸 pk (외래키)
-    private List<AddressExam> addresses; // 관계의 주인 //그러나 DB에서는 address에 외리키가 잇음
+    @JoinColumn(name = "member_id")      // 조인을 걸 pk (외래키)
+    private List<AddressExam> addresses; // 관계의 주인
+    // - 1:N 의 관계, 주인은 1
+    // - DB 에서는 address 에 외리키를 가짐.
+    // - 그러나 객체지향적으로 단뱡향과 양방향 모두 객체의 주인을 대상으로 매핑한다.
+    //   ex) @ManyToOne @JoinColumn(name = " )
 
 }

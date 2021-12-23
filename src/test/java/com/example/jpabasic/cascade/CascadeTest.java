@@ -114,7 +114,7 @@ public class CascadeTest {
 
         // 2. " == " 비교용 새로운 인스턴스 생성
         Address address1 = address.toNewAddress(address.getZipCode(), address.getCity(), address.getStreet());
-        Address address2 = address;
+        Address address2 = address1;
 
         // 1. 인스턴스의 참조값 비교 " == "
         System.out.println("동일 인스턴스 == 비교 : " + (address == address1));
@@ -188,7 +188,7 @@ public class CascadeTest {
     public void 엔티티컬렉션삭제Test() {
 
         // 1. 연관관계 삭제 (*조회 후에 삭제!!)
-        MemberExam memberExam1 = memberExamRepository.findById(13L).get();
+        MemberExam memberExam1 = memberExamRepository.findById(18L).get();
         AddressExam addressExam = memberExam1.getAddresses().remove(0);
 
         AddressExam addressExam2 = new AddressExam();
